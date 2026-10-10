@@ -14,7 +14,7 @@
   --border:rgba(120,150,255,.14); --border2:rgba(120,150,255,.28);
   --glow:0 0 24px rgba(0,229,255,.4);
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal','Segoe UI',system-ui,sans-serif;-webkit-tap-highlight-color:transparent;backface-visibility:hidden;transform:translateZ(0)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal','Segoe UI',system-ui,sans-serif;-webkit-tap-highlight-color:transparent;backface-visibility:hidden}
 html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fixed;inset:0;text-rendering:optimizeSpeed}
 
@@ -24,7 +24,6 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 .neb1{width:520px;height:520px;background:radial-gradient(circle,#a855f7,transparent);top:-180px;right:-180px}
 .neb2{width:460px;height:460px;background:radial-gradient(circle,#00e5ff,transparent);bottom:-180px;left:-180px}
 
-  /* تصغير أزرار ومعطيات شريط الملعب بسطر واحد فقط */
 .arena-top { padding: 3px 6px !important; gap: 3px !important; flex-wrap: nowrap !important; align-items: center !important; }
 .arena-actions { gap: 3px !important; flex-shrink: 0 !important; }
 .leave-btn, .chat-game-btn { padding: 3px 7px !important; font-size: 8px !important; border-radius: 7px !important; gap: 2px !important; white-space: nowrap !important; }
@@ -53,7 +52,6 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 
 .app{position:fixed;inset:0;display:flex;flex-direction:column;z-index:5}
 
-  
 .topbar{padding:8px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px;z-index:100;flex-shrink:0;background:rgba(5,6,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .me{display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 8px 4px 4px;border-radius:14px}
 .me-av{width:44px;height:44px;border-radius:50%;border:2.5px solid var(--cyan);box-shadow:var(--glow);display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#1a1f38,#0b0e1a);flex-shrink:0;overflow:hidden}
@@ -160,11 +158,11 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 .match-timer.danger{background:linear-gradient(135deg,#ff3b5c,#c0392b);border-color:var(--red);animation:blinkDanger 0.6s infinite}
 @keyframes blinkDanger{0%,100%{opacity:1}50%{opacity:.5}}
 
-.arena-field{flex:1;position:relative;overflow:hidden;touch-action:none;background:#0a0d1a}
+.arena-field{flex:1;position:relative;overflow:hidden;touch-action:none;background:#0a0d1a;contain:layout style paint}
 .arena-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:.7}
 .arena-overlay{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 40%,rgba(5,6,13,.7) 100%)}
 
-.fighter{position:absolute;transform:translate3d(-50%,-50%,0);pointer-events:none;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;will-change:transform}
+.fighter{position:absolute;top:0;left:0;pointer-events:none;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;will-change:transform;backface-visibility:hidden;transform:translateZ(0)}
 .fighter .fig-body{display:flex;align-items:center;justify-content:center;position:relative}
 .fighter.me .fig-body{filter:drop-shadow(0 0 10px #00e5ff)}
 .fighter.enemy .fig-body{filter:drop-shadow(0 0 10px #ff3b5c)}
@@ -174,7 +172,7 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 .fighter .fig-hp-fill{height:100%;background:linear-gradient(90deg,#22e07a,#00e5ff)}
 .fighter.enemy .fig-hp-fill{background:linear-gradient(90deg,#ff3b5c,#ff8c42)}
 
-.projectile{position:absolute;transform:translate3d(-50%,-50%,0);pointer-events:none;z-index:8;display:flex;align-items:center;justify-content:center;will-change:transform}
+.projectile{position:absolute;top:0;left:0;pointer-events:none;z-index:8;display:flex;align-items:center;justify-content:center;will-change:transform;backface-visibility:hidden;transform:translateZ(0)}
 .projectile img{width:100%;height:100%;object-fit:contain}
 .projectile.noimg{border-radius:50%}
 .projectile.noimg.mine{background:radial-gradient(circle,#00e5ff,#3b82f6);box-shadow:0 0 14px #00e5ff;width:18px;height:18px}
@@ -182,7 +180,7 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 .projectile.noimg.fire{background:radial-gradient(circle,#ffd700,#ff3b5c);box-shadow:0 0 14px #ff8c42;width:18px;height:18px}
 .projectile.noimg.enemy{background:radial-gradient(circle,#ff3b5c,#c0392b);box-shadow:0 0 14px #ff3b5c;width:18px;height:18px}
 
-.hit-fx{position:absolute;width:56px;height:56px;border-radius:50%;transform:translate3d(-50%,-50%,0);pointer-events:none;z-index:15;background:radial-gradient(circle,rgba(0,229,255,.8),transparent 70%)}
+.hit-fx{position:absolute;top:0;left:0;width:56px;height:56px;border-radius:50%;pointer-events:none;z-index:15;background:radial-gradient(circle,rgba(0,229,255,.8),transparent 70%);will-change:transform,opacity}
 .hit-fx.red{background:radial-gradient(circle,rgba(255,59,92,.8),transparent 70%)}
 
 .arena-bottom{padding:6px 8px;background:rgba(5,6,13,.95);border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px;z-index:20;flex-shrink:0}
@@ -337,7 +335,7 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 .btn-acc{background:linear-gradient(135deg,#22e07a,#27ae60);color:#fff}
 .btn-rej{background:linear-gradient(135deg,#ff3b5c,#c0392b);color:#fff}
 
-.toast{position:fixed;top:70px;left:50%;transform:translate3d(-50%,-120px,0);background:linear-gradient(135deg,var(--card),var(--card2));border:1.5px solid var(--cyan);color:var(--text);padding:11px 18px;border-radius:13px;z-index:5000;font-size:12px;font-weight:700;display:flex;align-items:center;gap:7px;opacity:0;transition:transform .3s,opacity .3s;box-shadow:0 8px 30px rgba(0,0,0,.7);max-width:90%;pointer-events:none}
+.toast{position:fixed;top:70px;left:50%;transform:translate3d(-50%,-120px,0);background:linear-gradient(135deg,var(--card),var(--card2));border:1.5px solid var(--cyan);color:var(--text);padding:11px 18px;border-radius:13px;z-index:5000;font-size:12px;font-weight:700;display:flex;align-items:center;gap:7px;opacity:0;transition:transform .3s,opacity .3s;box-shadow:0 8px 30px rgba(0,0,0,.7);max-width:90%;pointer-events:none;will-change:transform,opacity}
 .toast.on{transform:translate3d(-50%,0,0);opacity:1}
 .smsg{position:fixed;top:50%;left:50%;transform:translate3d(-50%,-50%,0);z-index:5000;padding:16px 24px;border-radius:20px;background:linear-gradient(135deg,rgba(17,20,39,.98),rgba(26,31,56,.98));border:3px solid var(--cyan);box-shadow:0 0 60px rgba(0,229,255,.6);display:flex;flex-direction:column;align-items:center;gap:8px;min-width:220px;max-width:88vw;pointer-events:none}
 .smsg-ico{font-size:44px}
@@ -786,7 +784,7 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js';
 import { getFirestore, collection, addDoc, getDocs, query, where, doc, getDoc, onSnapshot, updateDoc, deleteDoc, serverTimestamp, setDoc, increment, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCPBrZMo6IYCwCDYV3HEfNcUmLUITR6VRc",
@@ -802,7 +800,7 @@ const db = getFirestore(app);
 
 const KING_EMAIL = 'hd5@5.com';
 const QUEEN_EMAIL = 'dh5@5.com';
-const ACTIVE_TIMEOUT = 5*60*1000;
+const ACTIVE_TIMEOUT = 3*60*1000;
 const WAIT_TIMEOUT = 30000;
 const TOTAL_GATES = 60;
 const MATCH_DURATION = 5*60*1000;
@@ -911,9 +909,17 @@ let randomUnsub=null;
 let randomMatched=false;
 
 let lastPosSend=0;
+let pendingPos=false;
 let fieldTouchActive=false;
 let globalBgUrl='';
 let currentEditingGate=null;
+
+// === Performance Optimizations ===
+let fieldRectCache = null;
+let fieldRectTime = 0;
+const projElMap = new Map();
+let hitFxPool = [];
+let renderMembersTimer = null;
 
 const $ = id => document.getElementById(id);
 function showToast(ico,msg){
@@ -932,6 +938,15 @@ function showSMsg(txt,type='default',dur=2500){
 }
 window.closeModal = id => { const m=$(id); if(m)m.classList.remove('on'); };
 window.openModal  = id => { const m=$(id); if(m)m.classList.add('on'); };
+
+function getFieldRect(){
+  const now = performance.now();
+  if(!fieldRectCache || now - fieldRectTime > 500){
+    fieldRectCache = $('arenaField').getBoundingClientRect();
+    fieldRectTime = now;
+  }
+  return fieldRectCache;
+}
 
 function initStars(){
   const c=$('stars'); if(!c)return;
@@ -1152,7 +1167,7 @@ async function registerPresence(){
     if(heartbeatInterval)clearInterval(heartbeatInterval);
     heartbeatInterval=setInterval(async()=>{
       if(currentUser){try{await updateDoc(doc(db,'gamePresence',currentUser.uid),{lastSeen:serverTimestamp()});}catch(e){}}
-    },30000);
+    },90000);
   }catch(e){}
 }
 
@@ -1161,7 +1176,7 @@ function listenActive(){
     const now=Date.now(), m=new Map();
     snap.forEach(d=>{const v=d.data(); const t=v.lastSeen?.toMillis?.()||0; if(now-t<ACTIVE_TIMEOUT)m.set(d.id,t);});
     activeUsersMap=m;
-    renderMembers();
+    renderMembersThrottled();
   });
 }
 function isActive(uid){ return (Date.now()-(activeUsersMap.get(uid)||0))<ACTIVE_TIMEOUT; }
@@ -1171,9 +1186,15 @@ function loadMembers(){
   membersUnsub=onSnapshot(collection(db,'users'),snap=>{
     allMembers=[];
     snap.forEach(d=>{if(d.id!==currentUser.uid)allMembers.push({uid:d.id,...d.data()});});
-    renderMembers();
+    renderMembersThrottled();
   });
 }
+
+function renderMembersThrottled(){
+  if(renderMembersTimer)return;
+  renderMembersTimer=setTimeout(()=>{ renderMembers(); renderMembersTimer=null; }, 250);
+}
+
 window.setFilter=f=>{ currentFilter=f; document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.filter===f)); renderMembers(); };
 function getRank(m){
   const e=(m.email||'').toLowerCase().trim();
@@ -1457,6 +1478,10 @@ function getGateData(id){
     attackSpeed: ov.attackSpeed || 1000,
     defense: ov.defense || 5,
     power: ov.power || 50,
+    bossHp: ov.bossHp || MAX_HP,
+    bossDodge: ov.bossDodge || 0,
+    playerHp: ov.playerHp || MAX_HP,
+    playerDodge: ov.playerDodge || 0,
     winsNeeded: (ov.winsNeeded!==undefined) ? ov.winsNeeded : (id*gameConfig.winsPerGate)
   };
 }
@@ -1500,26 +1525,21 @@ function renderGates(){
 function applyGlobeRotation(){
   const g=$('globe');
   g.style.transform=`rotateX(${globeRotX}deg) rotateY(${globeRotY}deg)`;
-  const els=g.querySelectorAll('.gate');
-  els.forEach(el=>{
-    const m=el.style.transform.match(/translate3d\((-?[\d.]+)px,\s*(-?[\d.]+)px,\s*(-?[\d.]+)px\)/);
-    if(m){
-      const z=parseFloat(m[3]);
-      el.style.zIndex = z>0 ? 100 : 10;
-      el.style.opacity = z>0 ? 1 : 0.55;
-    }
-  });
 }
 
-/* Globe auto-rotate */
-function autoRotateLoop(){
-  if(!dragging && Date.now()-lastUserInteraction>1500){
-    globeRotY += 0.08;
-    applyGlobeRotation();
-  }
-  requestAnimationFrame(autoRotateLoop);
+/* Globe auto-rotate - optimized 30fps */
+let globeRafId = null;
+let globeLastTime = 0;
+function autoRotateLoop(now){
+  globeRafId = requestAnimationFrame(autoRotateLoop);
+  if(!gatesData.length) return;
+  if(dragging || Date.now() - lastUserInteraction < 1500) return;
+  if(now - globeLastTime < 33) return;
+  globeLastTime = now;
+  globeRotY += 0.12;
+  applyGlobeRotation();
 }
-requestAnimationFrame(autoRotateLoop);
+globeRafId = requestAnimationFrame(autoRotateLoop);
 
 const wrap=$('globeWrap');
 wrap.addEventListener('pointerdown',e=>{
@@ -1560,7 +1580,8 @@ window.onGateClick=function(ev,id){
   } else qbox.style.display='none';
   let lockMsg='';
   if(selectedGate.locked) lockMsg=`<div style="color:var(--red);margin-top:6px">🔒 تحتاج ${selectedGate.winsNeeded} فوز · لديك ${myProfile?.wins||0}</div>`;
-  $('gmDesc').innerHTML=`<strong>${selectedGate.bossImg?`<img src="${selectedGate.bossImg}" style="width:40px;height:40px;object-fit:contain;vertical-align:middle;border-radius:8px"> `:''}${selectedGate.boss} ${selectedGate.bossName}</strong><br>${selectedGate.cleared?'<span style="color:var(--green)">✅ مفتوحة</span>':''}${lockMsg}`;
+  const clearedMark = selectedGate.cleared ? '<span style="color:var(--green)">✅ مفتوحة سابقاً (لا نقاط إضافية)</span><br>' : '';
+  $('gmDesc').innerHTML=`<strong>${selectedGate.bossImg?`<img src="${selectedGate.bossImg}" style="width:40px;height:40px;object-fit:contain;vertical-align:middle;border-radius:8px"> `:''}${selectedGate.boss} ${selectedGate.bossName}</strong><br>${clearedMark}${lockMsg}`;
   $('gmEnterBtn').disabled=selectedGate.locked;
   openModal('gateModal');
 };
@@ -1572,8 +1593,12 @@ window.exploreGate=function(){
     <strong>📖 تفاصيل ${g.name}</strong><br>
     🏛️ العصر: ${g.era}<br>
     👑 الحارس: ${g.boss} ${g.bossName}<br>
+    ❤️ طاقة الحارس: ${g.bossHp}<br>
+    💨 تفادي الحارس: ${g.bossDodge}%<br>
+    ❤️ طاقتك في هذه البوابة: ${g.playerHp}<br>
+    💨 تفاديك في هذه البوابة: ${g.playerDodge}%<br>
     ⚡ السرعة: ${g.attackSpeed}ms · 🛡️ الدفاع: ${g.defense} · 💪 القوة: ${g.power}<br>
-    🎯 المكافأة: 50 نقطة<br>
+    🎯 المكافأة: ${g.cleared?'0 (مفتوحة سابقاً)':'50 نقطة (مرة واحدة)'}<br>
     🔓 متطلب: ${g.winsNeeded} فوز
   `;
   showToast('📖','تفاصيل');
@@ -1650,7 +1675,8 @@ async function startGateBattle(gate){
   battle={
     mode:'npc',
     myX:0.25,myY:0.6, enX:0.75,enY:0.4,
-    myHp:MAX_HP,enHp:MAX_HP,myMaxHp:MAX_HP,enMaxHp:MAX_HP,
+    myHp:gate.playerHp,enHp:gate.bossHp,
+    myMaxHp:gate.playerHp,enMaxHp:gate.bossHp,
     score:0, projectiles:[],
     enemyShootTimer:800, enemyMoveTimer:600,
     enemyMoveDir:{x:0,y:0},
@@ -1659,7 +1685,10 @@ async function startGateBattle(gate){
     npcSpeed: gate.attackSpeed||1000,
     npcDefense: gate.defense||5,
     npcPower: gate.power||50,
-    matchEndTime: Date.now()+MATCH_DURATION
+    npcDodge: gate.bossDodge||0,
+    playerDodge: gate.playerDodge||0,
+    matchEndTime: Date.now()+MATCH_DURATION,
+    _lastMyHp: -1, _lastEnHp: -1
   };
   $('arena').classList.add('on');
   setupFieldTouch();
@@ -1671,28 +1700,47 @@ async function startGateBattle(gate){
 
 function positionFighters(){
   if(!battle)return;
-  const f=$('arenaField').getBoundingClientRect();
-  $('fighterMe').style.left=(battle.myX*f.width)+'px';
-  $('fighterMe').style.top=(battle.myY*f.height)+'px';
-  $('fighterEn').style.left=(battle.enX*f.width)+'px';
-  $('fighterEn').style.top=(battle.enY*f.height)+'px';
-  $('figMeHp').style.width=(Math.max(0,battle.myHp)/battle.myMaxHp*100)+'%';
-  $('figEnHp').style.width=(Math.max(0,battle.enHp)/battle.enMaxHp*100)+'%';
-  $('hudMeHp').style.width=(Math.max(0,battle.myHp)/battle.myMaxHp*100)+'%';
-  $('hudEnHp').style.width=(Math.max(0,battle.enHp)/battle.enMaxHp*100)+'%';
-  $('hudMeHpTxt').textContent=Math.max(0,Math.round(battle.myHp));
-  $('hudEnHpTxt').textContent=Math.max(0,Math.round(battle.enHp));
+  const f=getFieldRect();
+  const me=$('fighterMe'), en=$('fighterEn');
+  me.style.transform=`translate3d(${battle.myX*f.width}px,${battle.myY*f.height}px,0) translate(-50%,-50%)`;
+  en.style.transform=`translate3d(${battle.enX*f.width}px,${battle.enY*f.height}px,0) translate(-50%,-50%)`;
+  
+  // HP bars only when changed
+  if(battle._lastMyHp !== battle.myHp){
+    battle._lastMyHp = battle.myHp;
+    const pct = (Math.max(0,battle.myHp)/battle.myMaxHp*100)+'%';
+    $('figMeHp').style.width = pct;
+    $('hudMeHp').style.width = pct;
+    $('hudMeHpTxt').textContent = Math.max(0,Math.round(battle.myHp));
+  }
+  if(battle._lastEnHp !== battle.enHp){
+    battle._lastEnHp = battle.enHp;
+    const pct = (Math.max(0,battle.enHp)/battle.enMaxHp*100)+'%';
+    $('figEnHp').style.width = pct;
+    $('hudEnHp').style.width = pct;
+    $('hudEnHpTxt').textContent = Math.max(0,Math.round(battle.enHp));
+  }
 }
 
+let battleRafId = null;
+let battleLastTick = 0;
 function startBattleLoop(){
-  if(battleLoop)clearInterval(battleLoop);
-  battleLoop=setInterval(battleTick,40);
+  if(battleRafId) cancelAnimationFrame(battleRafId);
+  battleLastTick = 0;
+  function tick(now){
+    battleRafId = requestAnimationFrame(tick);
+    if(!battle || !battle.running) return;
+    if(now - battleLastTick < 33) return;
+    battleLastTick = now;
+    battleTick();
+  }
+  battleRafId = requestAnimationFrame(tick);
 }
 
 function battleTick(){
   if(!battle||!battle.running)return;
   if(battle.mode==='npc'){
-    battle.enemyMoveTimer-=40;
+    battle.enemyMoveTimer-=33;
     if(battle.enemyMoveTimer<=0){
       battle.enemyMoveTimer=700+Math.random()*500;
       const dx=battle.myX-battle.enX, dy=battle.myY-battle.enY;
@@ -1704,7 +1752,7 @@ function battleTick(){
     battle.enY+=battle.enemyMoveDir.y*0.004;
     battle.enX=Math.max(0.06,Math.min(0.94,battle.enX));
     battle.enY=Math.max(0.12,Math.min(0.88,battle.enY));
-    battle.enemyShootTimer-=40;
+    battle.enemyShootTimer-=33;
     if(battle.enemyShootTimer<=0){
       battle.enemyShootTimer=(battle.npcSpeed||1000)+Math.random()*400;
       shootFromEnemy();
@@ -1729,15 +1777,18 @@ function shootFromEnemy(){
 
 function moveProjectiles(){
   if(!battle)return;
-  battle.projectiles.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.life--; });
   const field=$('arenaField');
-  const f=field.getBoundingClientRect();
-  const existing=[...field.querySelectorAll('.projectile')];
-  battle.projectiles.forEach((p,i)=>{
-    let el=existing[i];
+  const f=getFieldRect();
+  
+  const activeIds = new Set();
+  battle.projectiles.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.life--;
+    activeIds.add(p.id);
+    
+    let el = projElMap.get(p.id);
     if(!el){
-      el=document.createElement('div');
-      const hasImg=p.img && p.owner==='me';
+      el = document.createElement('div');
+      const hasImg = p.img && p.owner==='me';
       if(hasImg){
         el.className='projectile';
         el.style.width='30px';el.style.height='30px';
@@ -1746,14 +1797,19 @@ function moveProjectiles(){
         el.className='projectile noimg '+(p.owner==='enemy'?'enemy':(p.cls||'mine'));
       }
       field.appendChild(el);
+      projElMap.set(p.id, el);
     }
-    el.style.left=(p.x*f.width)+'px';
-    el.style.top=(p.y*f.height)+'px';
+    el.style.transform = `translate3d(${p.x*f.width}px,${p.y*f.height}px,0) translate(-50%,-50%)`;
   });
-  for(let i=battle.projectiles.length;i<existing.length;i++)existing[i].remove();
-  battle.projectiles=battle.projectiles.filter(p=>p.life>0&&p.x>0&&p.x<1&&p.y>0&&p.y<1);
-  const after=[...field.querySelectorAll('.projectile')];
-  for(let i=battle.projectiles.length;i<after.length;i++)after[i].remove();
+  
+  // cleanup
+  projElMap.forEach((el, id) => {
+    if(!activeIds.has(id)){ el.remove(); projElMap.delete(id); }
+  });
+  
+  battle.projectiles = battle.projectiles.filter(p => 
+    p.life > 0 && p.x > 0 && p.x < 1 && p.y > 0 && p.y < 1
+  );
 }
 
 function checkHits(){
@@ -1766,6 +1822,14 @@ function checkHits(){
       const dist=Math.hypot(p.x-battle.enX,p.y-battle.enY);
       if(dist<0.05){
         p.hit=true;
+        // تفادي العدو
+        if(battle.mode==='npc' && battle.npcDodge > 0){
+          if(Math.random()*100 < battle.npcDodge){
+            addHitFx(battle.enX,battle.enY,'cyan'); // visual dodge
+            battle.hitCooldown=now+60;
+            return;
+          }
+        }
         battle.enHp-=p.dmg;
         addHitFx(battle.enX,battle.enY,'cyan');
         sfxHit();
@@ -1782,6 +1846,14 @@ function checkHits(){
       const dist=Math.hypot(p.x-battle.myX,p.y-battle.myY);
       if(dist<0.05){
         p.hit=true;
+        // تفادي اللاعب
+        if(battle.playerDodge > 0){
+          if(Math.random()*100 < battle.playerDodge){
+            addHitFx(battle.myX,battle.myY,'cyan');
+            battle.hitCooldown=now+60;
+            return;
+          }
+        }
         battle.myHp-=p.dmg;
         addHitFx(battle.myX,battle.myY,'red');
         sfxHit();
@@ -1800,11 +1872,10 @@ function checkHits(){
 }
 
 function addHitFx(x,y,cls){
-  const f=$('arenaField').getBoundingClientRect();
+  const f=getFieldRect();
   const el=document.createElement('div');
   el.className='hit-fx '+(cls==='red'?'red':'');
-  el.style.left=(x*f.width)+'px';
-  el.style.top=(y*f.height)+'px';
+  el.style.transform=`translate3d(${x*f.width}px,${y*f.height}px,0) translate(-50%,-50%)`;
   el.style.opacity='0.9';
   $('arenaField').appendChild(el);
   let op=0.9;
@@ -1861,7 +1932,7 @@ async function finishByTime(){
   if(!battle||!battle.running||battle.ended)return;
   battle.ended=true;
   battle.running=false;
-  if(battleLoop){clearInterval(battleLoop);battleLoop=null;}
+  if(battleRafId){cancelAnimationFrame(battleRafId);battleRafId=null;}
   const myHp=battle.myHp, oppHp=battle.enHp;
   const iWon = myHp > oppHp;
   showSMsg(iWon?'⏱️ فزت بالوقت!':'⏱️ خسرت بالوقت!', iWon?'win':'lose', 3000);
@@ -1872,16 +1943,25 @@ async function finishByTime(){
   if(battleUnsub){battleUnsub();battleUnsub=null;}
   if(battleShotUnsub){battleShotUnsub();battleShotUnsub=null;}
   if(battleChatUnsub){battleChatUnsub();battleChatUnsub=null;}
-  document.querySelectorAll('.projectile').forEach(p=>p.remove());
+  projElMap.forEach(el=>el.remove()); projElMap.clear();
   setTimeout(()=>{ leaveArena(); },2800);
 }
 
 async function applyWin(scoreGain=50){
   try{
+    const isFirstClear = battle && battle.gate && !(myProfile.clearedGates||[]).includes(battle.gate.id);
     const newCleared=[...(myProfile.clearedGates||[])];
-    if(battle&&battle.gate&&!newCleared.includes(battle.gate.id)) newCleared.push(battle.gate.id);
+    // لا نضيف البوابة إلا إذا كانت أول مرة
+    if(isFirstClear){ newCleared.push(battle.gate.id); }
     const newWins=(myProfile.wins||0)+1;
-    const updateData={points:increment(scoreGain),wins:increment(1),clearedGates:newCleared};
+    
+    // النقاط تُضاف فقط عند الفتح الأول
+    const pointsToAdd = isFirstClear ? scoreGain : 0;
+    
+    const updateData={wins:increment(1)};
+    if(pointsToAdd > 0) updateData.points = increment(pointsToAdd);
+    if(isFirstClear) updateData.clearedGates = newCleared;
+    
     const totalNeeded=gameConfig.winsPerGate*TOTAL_GATES;
     if(!myProfile.legendary && newWins>=totalNeeded){
       updateData.legendary=true;
@@ -1890,9 +1970,9 @@ async function applyWin(scoreGain=50){
       setTimeout(()=>{ showSMsg('👑 أسطوري!','win',4000); showToast('🏆','1,000,000 نقطة + إطار ملكي'); },1500);
     }
     await updateDoc(doc(db,'timeGatesProfiles',currentUser.uid),updateData);
-    myProfile.points=(myProfile.points||0)+scoreGain;
+    if(pointsToAdd > 0) myProfile.points=(myProfile.points||0)+pointsToAdd;
     myProfile.wins=newWins;
-    myProfile.clearedGates=newCleared;
+    if(isFirstClear) myProfile.clearedGates=newCleared;
     updateCharUI(); buildGates(); updateAddBtnVisibility();
     await registerPresence();
   }catch(e){console.error(e);}
@@ -1911,14 +1991,14 @@ async function endBattle(win){
   if(!battle||!battle.running)return;
   battle.running=false;
   stopMatchTimer();
-  if(battleLoop){clearInterval(battleLoop);battleLoop=null;}
-  document.querySelectorAll('.projectile').forEach(p=>p.remove());
+  if(battleRafId){cancelAnimationFrame(battleRafId);battleRafId=null;}
+  projElMap.forEach(el=>el.remove()); projElMap.clear();
   if(win){ sfxWin(); showSMsg('🏆 انتصرت! +50','win',2500); await applyWin(50); setTimeout(()=>{leaveArena();},2600); }
   else { sfxLose(); showSMsg('💀 خسرت! -10','lose',2500); await applyLoss(); setTimeout(()=>{leaveArena();},2600); }
 }
 
 function leaveArena(){
-  if(battleLoop){clearInterval(battleLoop);battleLoop=null;}
+  if(battleRafId){cancelAnimationFrame(battleRafId);battleRafId=null;}
   stopMatchTimer();
   if(battleUnsub){battleUnsub();battleUnsub=null;}
   if(battleShotUnsub){battleShotUnsub();battleShotUnsub=null;}
@@ -1926,7 +2006,8 @@ function leaveArena(){
   battle=null; fieldTouchActive=false;
   $('arena').classList.remove('on');
   const ov=$('chatOverlay'); if(ov) ov.classList.remove('on');
-  document.querySelectorAll('.projectile,.hit-fx,.arena-msg').forEach(e=>e.remove());
+  projElMap.forEach(el=>el.remove()); projElMap.clear();
+  document.querySelectorAll('.hit-fx,.arena-msg').forEach(e=>e.remove());
   activeAudios.forEach(a=>{try{a.pause();}catch(e){}}); activeAudios.clear();
 }
 window.leaveArena=leaveArena;
@@ -1946,7 +2027,7 @@ window.leaveArenaManual=async function(){
       await deleteDoc(doc(db,'timeGatesBattles',currentGameId));
     }catch(e){}
     battle.ended=true; battle.running=false;
-    if(battleLoop){clearInterval(battleLoop);battleLoop=null;}
+    if(battleRafId){cancelAnimationFrame(battleRafId);battleRafId=null;}
     if(battleUnsub){battleUnsub();battleUnsub=null;}
     if(battleShotUnsub){battleShotUnsub();battleShotUnsub=null;}
     if(battleChatUnsub){battleChatUnsub();battleChatUnsub=null;}
@@ -1957,7 +2038,7 @@ window.leaveArenaManual=async function(){
     setTimeout(()=>{ leaveArena(); },2400);
   } else {
     battle.ended=true; battle.running=false;
-    if(battleLoop){clearInterval(battleLoop);battleLoop=null;}
+    if(battleRafId){cancelAnimationFrame(battleRafId);battleRafId=null;}
     myProfile.losses=(myProfile.losses||0)+1;
     myProfile.points=Math.max(0,(myProfile.points||0)-10);
     updateCharUI();
@@ -1986,7 +2067,7 @@ function setupFieldTouch(){
 
 function moveToTouch(e){
   if(!battle)return;
-  const r=$('arenaField').getBoundingClientRect();
+  const r=getFieldRect();
   const x=(e.clientX-r.left)/r.width;
   const y=(e.clientY-r.top)/r.height;
   battle.myX=Math.max(0.06,Math.min(0.94,x));
@@ -1997,9 +2078,11 @@ function moveToTouch(e){
 
 async function sendMyPosition(){
   if(!battle||battle.mode!=='pvp'||!currentGameId)return;
+  if(pendingPos) return;
   const now=Date.now();
-  if(now-lastPosSend<55)return;
+  if(now-lastPosSend<100)return;
   lastPosSend=now;
+  pendingPos=true;
   try{
     const field='p'+(battle.isP1?'1':'2');
     const upd={};
@@ -2008,6 +2091,7 @@ async function sendMyPosition(){
     upd[field+'.hp']=battle.myHp;
     await updateDoc(doc(db,'timeGatesBattles',currentGameId),upd);
   }catch(e){}
+  pendingPos=false;
 }
 
 /* ============ CHAT ============ */
@@ -2206,7 +2290,9 @@ async function startPvPFromChallenge(gameId){
     score:0, projectiles:[],
     running:true, gate:null, lastShoot:0, hitCooldown:0,
     isP1:iAmP1, gameId, ended:false,
-    matchEndTime: g.matchEndTime || (Date.now()+MATCH_DURATION)
+    npcDodge:0, playerDodge:0,
+    matchEndTime: g.matchEndTime || (Date.now()+MATCH_DURATION),
+    _lastMyHp: -1, _lastEnHp: -1
   };
   $('arena').classList.add('on');
   setupFieldTouch();
@@ -2256,11 +2342,11 @@ async function endPvPBattle(win){
   if(!battle||!battle.running)return;
   battle.running=false;
   stopMatchTimer();
-  if(battleLoop){clearInterval(battleLoop);battleLoop=null;}
+  if(battleRafId){cancelAnimationFrame(battleRafId);battleRafId=null;}
   if(battleUnsub){battleUnsub();battleUnsub=null;}
   if(battleShotUnsub){battleShotUnsub();battleShotUnsub=null;}
   if(battleChatUnsub){battleChatUnsub();battleChatUnsub=null;}
-  document.querySelectorAll('.projectile').forEach(p=>p.remove());
+  projElMap.forEach(el=>el.remove()); projElMap.clear();
   if(win){ sfxWin(); showSMsg('🏆 انتصرت! +50','win',2500); await applyWin(50); }
   else { sfxLose(); showSMsg('💀 خسرت! -10','lose',2500); await applyLoss(); }
   try{ await deleteDoc(doc(db,'timeGatesBattles',currentGameId)); }catch(e){}
@@ -2503,7 +2589,7 @@ function renderAdminGatesList(){
       <div class="gate-list-ico">${icoContent}</div>
       <div class="gate-list-info">
         <div class="gate-list-name">#${i+1} ${g.name}</div>
-        <div class="gate-list-sub">${g.boss} ${g.bossName} · ${g.winsNeeded} فوز</div>
+        <div class="gate-list-sub">${g.boss} ${g.bossName} · ❤️${g.bossHp} · 💨${g.bossDodge}%</div>
       </div>
       <div class="gate-list-edit">✏️</div>
     </div>`;
@@ -2526,12 +2612,28 @@ window.editGate=function(id){
     <input type="text" class="inp" id="ge-boss" value="${g.boss}" placeholder="إيموجي الحارس">
     <input type="text" class="inp" id="ge-bossName" value="${g.bossName.replace(/"/g,'&quot;')}" placeholder="اسم الحارس">
     <input type="url" class="inp" id="ge-bossImg" value="${g.bossImg||''}" placeholder="رابط صورة الحارس">
+    
+    <div class="sec-title" style="margin-top:12px">❤️ طاقة الحارس (HP)</div>
+    <input type="number" class="inp" id="ge-bossHp" min="100" max="1000000" value="${g.bossHp}" placeholder="الافتراضي 1000">
+    <div class="sec-title">💨 نسبة تفادي الحارس للهجمات</div>
+    <div class="size-lbl"><span>النسبة</span><span id="ge-bossDodgeVal">${g.bossDodge}%</span></div>
+    <input type="range" class="slider" id="ge-bossDodge" min="0" max="100" step="1" value="${g.bossDodge}" oninput="document.getElementById('ge-bossDodgeVal').textContent=this.value+'%'">
+    <div style="font-size:9px;color:var(--t2);margin:4px 0 10px">0% = لا يتفادى، 100% = يتفادى كل الهجمات</div>
+    
+    <div class="sec-title">❤️ طاقتك في هذه البوابة (Player HP)</div>
+    <input type="number" class="inp" id="ge-playerHp" min="100" max="1000000" value="${g.playerHp}" placeholder="الافتراضي 1000">
+    <div class="sec-title">💨 نسبة تفاديك للهجمات</div>
+    <div class="size-lbl"><span>النسبة</span><span id="ge-playerDodgeVal">${g.playerDodge}%</span></div>
+    <input type="range" class="slider" id="ge-playerDodge" min="0" max="100" step="1" value="${g.playerDodge}" oninput="document.getElementById('ge-playerDodgeVal').textContent=this.value+'%'">
+    <div style="font-size:9px;color:var(--t2);margin:4px 0 10px">0% = لا تتفادى، 100% = تتفادى كل الهجمات</div>
+    
     <div class="sec-title">⚔️ خصائص الحارس</div>
     <div class="size-row">
-      <div><div class="size-lbl">سرعة الهجوم</div><input type="number" class="inp" id="ge-speed" min="200" max="3000" value="${g.attackSpeed}" style="margin-bottom:0"></div>
+      <div><div class="size-lbl">سرعة الهجوم (ms)</div><input type="number" class="inp" id="ge-speed" min="200" max="3000" value="${g.attackSpeed}" style="margin-bottom:0"></div>
       <div><div class="size-lbl">الدفاع</div><input type="number" class="inp" id="ge-def" min="0" max="30" value="${g.defense}" style="margin-bottom:0"></div>
     </div>
     <div style="margin-top:8px"><div class="size-lbl">القوة</div><input type="number" class="inp" id="ge-power" min="1" max="100" value="${g.power}" style="margin-bottom:0"></div>
+    
     <div class="sec-title" style="margin-top:12px">❓ السؤال</div>
     <textarea class="inp" id="ge-q" rows="2" placeholder="نص السؤال" style="resize:vertical;font-family:inherit">${g.question}</textarea>
     <input type="url" class="inp" id="ge-qImg" value="${g.questionImg||''}" placeholder="رابط صورة السؤال (اختياري)">
@@ -2571,6 +2673,10 @@ window.saveGateEdit=async function(){
     attackSpeed:Math.max(200,parseInt($('ge-speed').value)||1000),
     defense:Math.max(0,parseInt($('ge-def').value)||5),
     power:Math.max(1,Math.min(100,parseInt($('ge-power').value)||50)),
+    bossHp:Math.max(100,parseInt($('ge-bossHp').value)||MAX_HP),
+    bossDodge:Math.max(0,Math.min(100,parseInt($('ge-bossDodge').value)||0)),
+    playerHp:Math.max(100,parseInt($('ge-playerHp').value)||MAX_HP),
+    playerDodge:Math.max(0,Math.min(100,parseInt($('ge-playerDodge').value)||0)),
     winsNeeded:Math.max(0,parseInt($('ge-wins').value)||0)
   };
   gatesOverrides[id]=newOverride;
@@ -2593,7 +2699,10 @@ window.resetGate=async function(id){
   }catch(e){ showToast('❌','فشل'); }
 };
 
-window.addEventListener('resize',()=>{ if(currentUser)buildGates(); });
+window.addEventListener('resize',()=>{ 
+  fieldRectCache = null;
+  if(currentUser)buildGates(); 
+});
 
 window.addEventListener('beforeunload',()=>{
   if(heartbeatInterval)clearInterval(heartbeatInterval);
