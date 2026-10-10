@@ -258,8 +258,8 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 .char-opt img{width:100%;height:100%;object-fit:contain;display:block}
 .char-opt.on{border-color:var(--gold);background:rgba(255,215,0,.15);box-shadow:0 0 12px rgba(255,215,0,.6)}
 .char-opt:active{transform:scale(.95)}
-.char-opt.custom-added::after{content:'⭐';position:absolute;top:2px;right:2px;font-size:11px}
-.char-opt .del-btn{position:absolute;top:1px;left:1px;background:rgba(255,59,92,.95);border:none;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;cursor:pointer;display:none;align-items:center;justify-content:center;font-weight:900;z-index:5}
+.char-opt.custom-added::after{content:'⭐';position:absolute;bottom:2px;right:2px;font-size:11px}
+.char-opt .del-btn{position:absolute;bottom:1px;left:1px;background:rgba(255,59,92,.95);border:none;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;cursor:pointer;display:none;align-items:center;justify-content:center;font-weight:900;z-index:5}
 .char-opt.custom-added:hover .del-btn{display:flex}
 
 .wpn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
@@ -270,9 +270,150 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 .wpn-opt .wpow{font-size:9px;font-weight:900;color:var(--gold)}
 .wpn-opt.on{border-color:var(--gold);background:rgba(255,215,0,.15);box-shadow:0 0 12px rgba(255,215,0,.6)}
 .wpn-opt:active{transform:scale(.95)}
-.wpn-opt.custom-added::after{content:'⭐';position:absolute;top:2px;right:2px;font-size:10px}
-.wpn-opt .del-btn{position:absolute;top:1px;left:1px;background:rgba(255,59,92,.95);border:none;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;cursor:pointer;display:none;align-items:center;justify-content:center;font-weight:900;z-index:5}
+.wpn-opt.custom-added::after{content:'⭐';position:absolute;bottom:2px;right:2px;font-size:10px}
+.wpn-opt .del-btn{position:absolute;bottom:1px;left:1px;background:rgba(255,59,92,.95);border:none;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;cursor:pointer;display:none;align-items:center;justify-content:center;font-weight:900;z-index:5}
 .wpn-opt.custom-added:hover .del-btn{display:flex}
+
+/* ===== نظام القيود ===== */
+.char-opt .restr-btn,
+.wpn-opt .restr-btn{
+  position:absolute;
+  top:2px;
+  left:2px;
+  background:linear-gradient(135deg,#4a5568,#2d3748);
+  border:1.5px solid rgba(255,255,255,.3);
+  color:#fff;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  font-size:11px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:6;
+  box-shadow:0 2px 8px rgba(0,0,0,.5);
+  padding:0;
+  line-height:1;
+}
+.char-opt .restr-btn.active,
+.wpn-opt .restr-btn.active{
+  background:linear-gradient(135deg,#ff3b5c,#c0392b);
+  border-color:rgba(255,255,255,.5);
+}
+.char-opt.locked-restricted,
+.wpn-opt.locked-restricted{
+  opacity:.4;
+  filter:grayscale(.7);
+  cursor:not-allowed;
+  position:relative;
+}
+.char-opt.locked-restricted::before,
+.wpn-opt.locked-restricted::before{
+  content:'🔒';
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  background:rgba(0,0,0,.55);
+  border-radius:10px;
+  z-index:4;
+}
+.char-opt.locked-restricted .restr-btn,
+.wpn-opt.locked-restricted .restr-btn{
+  opacity:1;
+  filter:none;
+  z-index:7;
+}
+
+.restriction-members{
+  max-height:260px;
+  overflow-y:auto;
+  background:rgba(255,255,255,.04);
+  border:1.5px solid var(--border);
+  border-radius:11px;
+  padding:8px;
+  margin-bottom:12px;
+  overscroll-behavior:contain;
+}
+.restriction-member{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 9px;
+  border-radius:9px;
+  margin-bottom:5px;
+  cursor:pointer;
+  transition:background .15s;
+  border:1.5px solid transparent;
+}
+.restriction-member:hover{background:rgba(0,229,255,.06)}
+.restriction-member.selected{
+  background:rgba(34,224,122,.15);
+  border-color:var(--green);
+}
+.restriction-member .rm-av{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#1a1f38,#0b0e1a);
+  font-size:15px;font-weight:900;color:#fff;
+  overflow:hidden;flex-shrink:0;
+  border:1.5px solid var(--border2);
+}
+.restriction-member .rm-av img{width:100%;height:100%;object-fit:cover}
+.restriction-member .rm-nm{
+  flex:1;font-size:12px;font-weight:800;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.restriction-member .rm-badge{
+  font-size:9px;padding:1px 5px;border-radius:5px;
+  background:rgba(255,215,0,.15);color:var(--gold);
+  font-weight:800;flex-shrink:0;
+}
+.restriction-member .rm-check{
+  width:22px;height:22px;border-radius:5px;
+  border:2px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;
+  color:transparent;
+  transition:background .15s, border-color .15s;
+}
+.restriction-member.selected .rm-check{
+  background:var(--green);
+  border-color:var(--green);
+  color:#fff;
+  font-weight:900;
+}
+.restr-tools{
+  display:flex;gap:6px;margin-bottom:8px;
+}
+.restr-tools button{
+  flex:1;padding:6px;border-radius:8px;border:none;
+  font-size:10px;font-weight:800;cursor:pointer;
+}
+.restr-tools .all{background:linear-gradient(135deg,#22e07a,#16a34a);color:#fff}
+.restr-tools .none{background:linear-gradient(135deg,#ff3b5c,#dc2626);color:#fff}
+
+.restriction-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-bottom:12px;
+}
+.restriction-tab{
+  padding:9px 6px;text-align:center;
+  background:rgba(255,255,255,.04);
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  color:var(--t2);font-size:10px;font-weight:800;
+  cursor:pointer;
+}
+.restriction-tab.on{
+  background:linear-gradient(135deg,rgba(0,229,255,.2),rgba(168,85,247,.15));
+  border-color:var(--cyan);color:var(--cyan);
+}
 
 .sec-title{font-size:11px;font-weight:900;color:var(--cyan);margin-bottom:6px;display:flex;align-items:center;gap:5px;justify-content:space-between}
 .sec-title .add-btn{background:linear-gradient(135deg,#22e07a,#00b8a9);color:#fff;border:none;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:900;cursor:pointer}
@@ -392,7 +533,8 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
 
 #charEditorModal .mc,
 #adminModal .mc,
-#gateEditModal .mc{contain:layout style paint}
+#gateEditModal .mc,
+#restrictionModal .mc{contain:layout style paint}
 
 @media(max-width:380px){
   .char-opt{font-size:22px}
@@ -618,6 +760,12 @@ body{background:var(--bg);color:var(--text);overscroll-behavior:none;position:fi
     <input type="url" class="inp" id="newWpnImg" placeholder="رابط صورة الهجمة">
     <input type="url" class="inp" id="newWpnSound" placeholder="رابط صوت الإطلاق (mp3)">
     <button class="save-btn" onclick="saveNewWpn()"><i class="bi bi-check-circle-fill"></i> إضافة</button>
+  </div>
+</div>
+
+<div class="modal" id="restrictionModal">
+  <div class="mc" style="max-width:500px">
+    <div id="restrictionContent"></div>
   </div>
 </div>
 
@@ -932,7 +1080,6 @@ let fieldTouchActive=false;
 let globalBgUrl='';
 let currentEditingGate=null;
 
-// Performance
 let fieldRectCache = null;
 let fieldRectTime = 0;
 const projElMap = new Map();
@@ -1149,6 +1296,11 @@ async function loadMyProfile(){
   }catch(e){console.error(e);}
 }
 
+function isCustomItem(id, type){
+  if(type==='char') return !DEFAULT_CHARACTERS.find(d=>d.id===id);
+  return !DEFAULT_WEAPONS.find(d=>d.id===id);
+}
+
 async function loadCustomChars(){
   try{
     const snap=await getDocs(collection(db,'timeGatesCustomChars'));
@@ -1158,9 +1310,33 @@ async function loadCustomChars(){
       if(v.type==='char')chars.push({id:d.id,...v});
       else if(v.type==='weapon')weapons.push({id:d.id,...v});
     });
-    CHARACTERS=[...DEFAULT_CHARACTERS, ...chars];
-    WEAPONS=[...DEFAULT_WEAPONS, ...weapons];
+    
+    // تحميل قيود العناصر الافتراضية
+    const rSnap=await getDocs(collection(db,'timeGatesRestrictions'));
+    const restrictionsMap = {};
+    rSnap.forEach(d=>{
+      const v=d.data();
+      if(v.type && v.itemId){
+        restrictionsMap[`${v.type}_${v.itemId}`] = v.restriction;
+      }
+    });
+    
+    const withRestrictions = (arr, type) => arr.map(item=>{
+      const fromColl = item.restriction;
+      const fromMap = restrictionsMap[`${type}_${item.id}`];
+      return { ...item, restriction: fromColl || fromMap || null };
+    });
+    
+    CHARACTERS = [
+      ...withRestrictions(DEFAULT_CHARACTERS, 'char'),
+      ...withRestrictions(chars, 'char')
+    ];
+    WEAPONS = [
+      ...withRestrictions(DEFAULT_WEAPONS, 'weapon'),
+      ...withRestrictions(weapons, 'weapon')
+    ];
   }catch(e){
+    console.error(e);
     CHARACTERS=[...DEFAULT_CHARACTERS];
     WEAPONS=[...DEFAULT_WEAPONS];
   }
@@ -1328,42 +1504,308 @@ window.viewProfile=async function(uid){
   }
 };
 
+/* ============ نظام القيود ============ */
+function isRestrictionLocked(restr, uid, clearedCount){
+  if(!restr) return false;
+  if(!restr.mode || restr.mode === 'open') return false;
+  if(restr.mode === 'locked') return true;
+  if(restr.mode === 'members'){
+    const allowed = restr.members || [];
+    return !allowed.includes(uid);
+  }
+  if(restr.mode === 'gates'){
+    return (clearedCount||0) < (restr.gatesRequired||0);
+  }
+  return false;
+}
+
+window.openRestriction=function(ev, type, id){
+  ev.stopPropagation();
+  if(!isKingOrQueen(myProfile)){ showToast('🔒','غير مصرح'); return; }
+  
+  const item = type==='char' 
+    ? CHARACTERS.find(c=>c.id===id) 
+    : WEAPONS.find(w=>w.id===id);
+  if(!item) return;
+  
+  const restr = item.restriction || { mode:'open' };
+  const name = item.name || 'بدون اسم';
+  const icoHtml = item.img 
+    ? `<img src="${item.img}" style="width:50px;height:50px;object-fit:contain;border-radius:10px">`
+    : `<span style="font-size:40px">${item.emoji||'❓'}</span>`;
+  
+  // قائمة الأعضاء مرتبة (الملك/الملكة أولاً ثم الباقي)
+  const sortedMembers = [...allMembers].sort((a,b)=>{
+    const ra = getRank(a).prio;
+    const rb = getRank(b).prio;
+    if(ra !== rb) return ra - rb;
+    return (a.name||'').localeCompare(b.name||'','ar');
+  });
+  
+  const membersList = sortedMembers.map(m=>{
+    const uid = m.uid;
+    const nm = m.name || m.email?.split('@')[0] || 'مستخدم';
+    const sel = (restr.members||[]).includes(uid);
+    const r = getRank(m);
+    const isRoyal = r.cls==='king' || r.cls==='queen';
+    const av = m.avatar 
+      ? `<img src="${m.avatar}">` 
+      : nm.charAt(0);
+    const badge = isRoyal ? `<span class="rm-badge">${r.badge}</span>` : '';
+    return `<div class="restriction-member ${sel?'selected':''}" 
+      data-uid="${uid}" onclick="toggleRestrMember(this)">
+      <div class="rm-av">${av}</div>
+      <div class="rm-nm">${nm}</div>
+      ${badge}
+      <div class="rm-check">✓</div>
+    </div>`;
+  }).join('') || '<div class="empty" style="padding:20px"><i class="bi bi-people"></i>لا يوجد أعضاء</div>';
+  
+  const modalHtml = `
+    <div class="mh">
+      <div class="mt"><i class="bi bi-shield-lock-fill"></i> قيود: ${name}</div>
+      <button class="mx" onclick="closeModal('restrictionModal')"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div style="text-align:center;margin-bottom:14px">${icoHtml}</div>
+    
+    <div class="sec-title"><i class="bi bi-sliders"></i> نوع القيد</div>
+    <div class="restriction-tabs">
+      <div class="restriction-tab ${(!restr.mode||restr.mode==='open')?'on':''}" 
+        data-mode="open" onclick="setRestrMode('open')">🌍 مفتوح للكل</div>
+      <div class="restriction-tab ${restr.mode==='locked'?'on':''}" 
+        data-mode="locked" onclick="setRestrMode('locked')">🔒 مقفل تماماً</div>
+      <div class="restriction-tab ${restr.mode==='members'?'on':''}" 
+        data-mode="members" onclick="setRestrMode('members')">👥 لأعضاء محددين</div>
+      <div class="restriction-tab ${restr.mode==='gates'?'on':''}" 
+        data-mode="gates" onclick="setRestrMode('gates')">🚪 حسب البوابات</div>
+    </div>
+    
+    <div id="restr-members-sec" style="display:${restr.mode==='members'?'block':'none'}">
+      <div class="sec-title">
+        <span><i class="bi bi-people"></i> اختر الأعضاء المسموح لهم</span>
+      </div>
+      <div class="restr-tools">
+        <button class="all" onclick="selectAllMembers()">✓ تحديد الكل</button>
+        <button class="none" onclick="deselectAllMembers()">✗ إلغاء الكل</button>
+      </div>
+      <div class="restriction-members" id="restr-members-list">${membersList}</div>
+    </div>
+    
+    <div id="restr-gates-sec" style="display:${restr.mode==='gates'?'block':'none'}">
+      <div class="sec-title"><i class="bi bi-door-open"></i> عدد البوابات المطلوب فتحها</div>
+      <input type="number" class="inp" id="restr-gates-req" min="1" max="60" 
+        value="${restr.gatesRequired||30}" placeholder="مثال: 30">
+      <div style="font-size:10px;color:var(--t2);margin-bottom:8px">
+        ℹ️ اللاعب يحتاج فتح هذا العدد من البوابات لاستخدام هذا العنصر
+      </div>
+    </div>
+    
+    <button class="save-btn" onclick="saveRestriction('${type}','${id}')">
+      <i class="bi bi-check-circle-fill"></i> حفظ القيود
+    </button>
+  `;
+  
+  $('restrictionContent').innerHTML = modalHtml;
+  const rmodal = $('restrictionModal');
+  rmodal._restrictionState = { 
+    type, id, 
+    mode: restr.mode||'open', 
+    members: [...(restr.members||[])] 
+  };
+  openModal('restrictionModal');
+};
+
+window.setRestrMode=function(mode){
+  const rmodal = $('restrictionModal');
+  if(!rmodal || !rmodal._restrictionState) return;
+  rmodal._restrictionState.mode = mode;
+  
+  document.querySelectorAll('.restriction-tab').forEach(t=>{
+    t.classList.toggle('on', t.dataset.mode===mode);
+  });
+  $('restr-members-sec').style.display = mode==='members'?'block':'none';
+  $('restr-gates-sec').style.display = mode==='gates'?'block':'none';
+};
+
+window.toggleRestrMember=function(el){
+  const uid = el.dataset.uid;
+  const rmodal = $('restrictionModal');
+  if(!rmodal || !rmodal._restrictionState) return;
+  const state = rmodal._restrictionState;
+  
+  const idx = state.members.indexOf(uid);
+  if(idx >= 0){
+    state.members.splice(idx,1);
+    el.classList.remove('selected');
+  } else {
+    state.members.push(uid);
+    el.classList.add('selected');
+  }
+};
+
+window.selectAllMembers=function(){
+  const rmodal = $('restrictionModal');
+  if(!rmodal || !rmodal._restrictionState) return;
+  const state = rmodal._restrictionState;
+  state.members = allMembers.map(m=>m.uid);
+  document.querySelectorAll('#restr-members-list .restriction-member').forEach(el=>{
+    el.classList.add('selected');
+  });
+};
+
+window.deselectAllMembers=function(){
+  const rmodal = $('restrictionModal');
+  if(!rmodal || !rmodal._restrictionState) return;
+  const state = rmodal._restrictionState;
+  state.members = [];
+  document.querySelectorAll('#restr-members-list .restriction-member').forEach(el=>{
+    el.classList.remove('selected');
+  });
+};
+
+window.saveRestriction=async function(type, id){
+  const rmodal = $('restrictionModal');
+  if(!rmodal || !rmodal._restrictionState) return;
+  const state = rmodal._restrictionState;
+  
+  let restriction;
+  if(state.mode === 'open'){
+    restriction = null;
+  } else if(state.mode === 'locked'){
+    restriction = { mode:'locked' };
+  } else if(state.mode === 'members'){
+    if(!state.members.length){
+      showToast('⚠️','اختر عضو واحد على الأقل');
+      return;
+    }
+    restriction = { mode:'members', members: state.members };
+  } else if(state.mode === 'gates'){
+    const req = parseInt($('restr-gates-req').value)||0;
+    if(req<1 || req>60){
+      showToast('⚠️','أدخل رقماً بين 1 و 60');
+      return;
+    }
+    restriction = { mode:'gates', gatesRequired: req };
+  }
+  
+  try{
+    if(isCustomItem(id, type)){
+      await updateDoc(doc(db, 'timeGatesCustomChars', id), { restriction });
+    } else {
+      await setDoc(doc(db, 'timeGatesRestrictions', `${type}_${id}`), {
+        type, itemId: id, restriction,
+        updatedAt: serverTimestamp(), updatedBy: myProfile.name
+      });
+    }
+    
+    if(type==='char'){
+      const c = CHARACTERS.find(x=>x.id===id);
+      if(c) c.restriction = restriction;
+      renderCharGrid();
+    } else {
+      const w = WEAPONS.find(x=>x.id===id);
+      if(w) w.restriction = restriction;
+      renderWpnGrid();
+    }
+    
+    closeModal('restrictionModal');
+    showToast('✅','تم حفظ القيود');
+  }catch(e){
+    console.error(e);
+    showToast('❌','فشل الحفظ');
+  }
+};
+
+/* ============ Character/Weapon Grids ============ */
 function renderCharGrid(){
   const grid=$('charGrid'); if(!grid)return;
-  const canDelete=isKingOrQueen(myProfile);
+  const canManage=isKingOrQueen(myProfile);
+  const myClearedCount = (myProfile?.clearedGates||[]).length;
+  
   grid.innerHTML=CHARACTERS.map(c=>{
-    const isCustom=c.custom||!DEFAULT_CHARACTERS.find(d=>d.id===c.id);
+    const isCustom=isCustomItem(c.id, 'char');
+    const restr = c.restriction || null;
+    const isLocked = isRestrictionLocked(restr, currentUser?.uid, myClearedCount);
+    
     let inner;
     if(c.img) inner=`<img src="${c.img}" onerror="this.outerHTML='<span>${c.emoji||'❓'}</span>'">`;
     else inner=`<span>${c.emoji||'❓'}</span>`;
-    const delBtn=(isCustom && canDelete)?`<button class="del-btn" onclick="deleteCustom(event,'char','${c.id}')">×</button>`:'';
-    return `<div class="char-opt ${myChar.charId===c.id?'on':''} ${isCustom?'custom-added':''}" onclick="pickChar('${c.id}')" title="${c.name}">${delBtn}${inner}</div>`;
+    
+    const delBtn=(isCustom && canManage)?`<button class="del-btn" onclick="deleteCustom(event,'char','${c.id}')">×</button>`:'';
+    const restrBtn=canManage?`<button class="restr-btn ${restr?'active':''}" onclick="openRestriction(event,'char','${c.id}')">${restr?'🔒':'🔓'}</button>`:'';
+    
+    const selected = myChar.charId===c.id && !isLocked;
+    
+    return `<div class="char-opt ${selected?'on':''} ${isCustom?'custom-added':''} ${isLocked?'locked-restricted':''}" 
+      onclick="${isLocked?'':`pickChar('${c.id}')`}" title="${c.name}${isLocked?' (مقفلة)':''}">
+      ${restrBtn}${delBtn}${inner}
+    </div>`;
   }).join('');
 }
+
 function renderWpnGrid(){
   const grid=$('wpnGrid'); if(!grid)return;
-  const canDelete=isKingOrQueen(myProfile);
+  const canManage=isKingOrQueen(myProfile);
+  const myClearedCount = (myProfile?.clearedGates||[]).length;
+  
   grid.innerHTML=WEAPONS.map(w=>{
-    const isCustom=w.custom||!DEFAULT_WEAPONS.find(d=>d.id===w.id);
+    const isCustom=isCustomItem(w.id, 'weapon');
+    const restr = w.restriction || null;
+    const isLocked = isRestrictionLocked(restr, currentUser?.uid, myClearedCount);
+    
     let icoInner;
     if(w.img) icoInner=`<img src="${w.img}" onerror="this.outerHTML='<span>${w.emoji||'❓'}</span>'">`;
     else icoInner=`<span>${w.emoji||'❓'}</span>`;
-    const delBtn=(isCustom && canDelete)?`<button class="del-btn" onclick="deleteCustom(event,'weapon','${w.id}')">×</button>`:'';
-    return `<div class="wpn-opt ${myChar.weaponId===w.id?'on':''} ${isCustom?'custom-added':''}" onclick="pickWpn('${w.id}')">
-      ${delBtn}<span class="wico">${icoInner}</span>
+    
+    const delBtn=(isCustom && canManage)?`<button class="del-btn" onclick="deleteCustom(event,'weapon','${w.id}')">×</button>`:'';
+    const restrBtn=canManage?`<button class="restr-btn ${restr?'active':''}" onclick="openRestriction(event,'weapon','${w.id}')">${restr?'🔒':'🔓'}</button>`:'';
+    
+    const selected = myChar.weaponId===w.id && !isLocked;
+    
+    return `<div class="wpn-opt ${selected?'on':''} ${isCustom?'custom-added':''} ${isLocked?'locked-restricted':''}" 
+      onclick="${isLocked?'':`pickWpn('${w.id}')`}">
+      ${restrBtn}${delBtn}
+      <span class="wico">${icoInner}</span>
       <span class="wnm">${w.name}</span>
       <span class="wpow">⚡${w.power}</span>
     </div>`;
   }).join('');
 }
-window.pickChar=id=>{ myChar.charId=id; sfxClick(); renderCharGrid(); };
-window.pickWpn=id=>{ myChar.weaponId=id; sfxClick(); renderWpnGrid(); };
+
+window.pickChar=id=>{ 
+  const c = CHARACTERS.find(x=>x.id===id);
+  if(c){
+    const myCleared = (myProfile?.clearedGates||[]).length;
+    if(isRestrictionLocked(c.restriction, currentUser?.uid, myCleared)){
+      showToast('🔒','مقفلة');
+      return;
+    }
+  }
+  myChar.charId=id; sfxClick(); renderCharGrid(); 
+};
+window.pickWpn=id=>{ 
+  const w = WEAPONS.find(x=>x.id===id);
+  if(w){
+    const myCleared = (myProfile?.clearedGates||[]).length;
+    if(isRestrictionLocked(w.restriction, currentUser?.uid, myCleared)){
+      showToast('🔒','مقفل');
+      return;
+    }
+  }
+  myChar.weaponId=id; sfxClick(); renderWpnGrid(); 
+};
 
 window.deleteCustom=async function(ev,type,id){
   ev.stopPropagation();
   if(!isKingOrQueen(myProfile)){ showToast('🔒','غير مصرح'); return; }
   if(!confirm('حذف هذا العنصر؟'))return;
-  try{ await deleteDoc(doc(db,'timeGatesCustomChars',id)); await loadCustomChars(); renderCharGrid(); renderWpnGrid(); showToast('✅','تم الحذف'); }
+  try{ 
+    await deleteDoc(doc(db,'timeGatesCustomChars',id)); 
+    await deleteDoc(doc(db,'timeGatesRestrictions',`${type}_${id}`)).catch(()=>{});
+    await loadCustomChars(); 
+    renderCharGrid(); renderWpnGrid(); 
+    showToast('✅','تم الحذف'); 
+  }
   catch(e){ showToast('❌','فشل'); }
 };
 
@@ -1462,8 +1904,26 @@ window.saveNewWpn=async function(){
 
 window.saveCharacter=async function(){
   if(!currentUser)return;
+  
+  const c = CHARACTERS.find(x=>x.id===myChar.charId);
+  const w = WEAPONS.find(x=>x.id===myChar.weaponId);
+  const myCleared = (myProfile?.clearedGates||[]).length;
+  
+  if(c && isRestrictionLocked(c.restriction, currentUser.uid, myCleared)){
+    showToast('🔒','الشخصية مقفلة');
+    return;
+  }
+  if(w && isRestrictionLocked(w.restriction, currentUser.uid, myCleared)){
+    showToast('🔒','السلاح مقفل');
+    return;
+  }
+  
   try{
-    await setDoc(doc(db,'timeGatesProfiles',currentUser.uid),{charId:myChar.charId,weaponId:myChar.weaponId,sizeW:myChar.sizeW,sizeH:myChar.sizeH,name:myProfile.name,updatedAt:serverTimestamp()},{merge:true});
+    await setDoc(doc(db,'timeGatesProfiles',currentUser.uid),{
+      charId:myChar.charId,weaponId:myChar.weaponId,
+      sizeW:myChar.sizeW,sizeH:myChar.sizeH,
+      name:myProfile.name,updatedAt:serverTimestamp()
+    },{merge:true});
     updateCharUI(); updateAdminUI();
     closeModal('charEditorModal'); showToast('✅','تم الحفظ');
   }catch(e){ showToast('❌','فشل'); }
@@ -1665,8 +2125,22 @@ window.answerQuiz=async function(idx){
 };
 
 /* ============ ARENA ============ */
-function pickWeapon(){ return WEAPONS.find(w=>w.id===myChar.weaponId)||WEAPONS[0]; }
-function pickChar(){ return CHARACTERS.find(c=>c.id===myChar.charId)||CHARACTERS[0]; }
+function pickWeapon(){ 
+  const w = WEAPONS.find(w=>w.id===myChar.weaponId)||WEAPONS[0];
+  const myCleared = (myProfile?.clearedGates||[]).length;
+  if(isRestrictionLocked(w.restriction, currentUser?.uid, myCleared)){
+    return WEAPONS.find(x=>!isRestrictionLocked(x.restriction, currentUser?.uid, myCleared)) || WEAPONS[0];
+  }
+  return w;
+}
+function pickChar(){ 
+  const c = CHARACTERS.find(c=>c.id===myChar.charId)||CHARACTERS[0];
+  const myCleared = (myProfile?.clearedGates||[]).length;
+  if(isRestrictionLocked(c.restriction, currentUser?.uid, myCleared)){
+    return CHARACTERS.find(x=>!isRestrictionLocked(x.restriction, currentUser?.uid, myCleared)) || CHARACTERS[0];
+  }
+  return c;
+}
 
 function charToHtml(c){
   if(!c)return '❓';
